@@ -63,7 +63,7 @@ export function HeroLiveSection({ items }: HeroLiveSectionProps) {
 
                 {/* Content */}
                 <div className="relative z-10 h-full flex items-center">
-                  <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 w-full">
+                  <div className="max-w-[1440px] mx-auto px-2 md:px-4 lg:px-6 w-full">
                     <div className="max-w-2xl animate-fade-in-up">
                       {item.status === 'live' && (
                         <Badge className="bg-pryde-red text-white border-none mb-4 text-sm live-badge animate-pulse-gold">
