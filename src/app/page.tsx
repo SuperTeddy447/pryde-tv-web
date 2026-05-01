@@ -21,18 +21,28 @@ export default function HomePage() {
   return (
     <div>
       {heroLives.length > 0 && <HeroLiveSection items={heroLives} />}
+      
+      {/* 1. โปรแกรมถ่ายทอดสด */}
       {livePrograms.length > 0 && <LiveProgramSection items={livePrograms} />}
+      
+      {/* 2. ไฮไลท์กีฬามันส์ ๆ */}
       {homeData?.highlights && homeData.highlights.length > 0 && (
         <HighlightSection items={homeData.highlights} />
       )}
+      
+      {/* 3. ประวัตินักกีฬา */}
+      {homeData?.fighters && homeData.fighters.length > 0 && (
+        <FighterCarouselSection fighters={homeData.fighters} />
+      )}
+      
+      {/* 4. เต็มแมทช์ย้อนหลัง */}
       {homeData?.replays && homeData.replays.length > 0 && (
         <ReplaySection items={homeData.replays} />
       )}
+      
+      {/* 5. ข่าวสารกีฬา */}
       {homeData?.news && homeData.news.length > 0 && (
         <NewsSection items={homeData.news as NewsItem[]} />
-      )}
-      {homeData?.fighters && homeData.fighters.length > 0 && (
-        <FighterCarouselSection fighters={homeData.fighters} />
       )}
     </div>
   );

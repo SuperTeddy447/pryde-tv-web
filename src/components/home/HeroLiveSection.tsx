@@ -58,7 +58,7 @@ export function HeroLiveSection({ items }: HeroLiveSectionProps) {
                     sizes="100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-pryde-black/90 via-pryde-black/60 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-pryde-black via-transparent to-pryde-black/30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-pryde-black/30" />
                 </div>
 
                 {/* Content */}

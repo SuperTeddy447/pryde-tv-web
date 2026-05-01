@@ -17,19 +17,19 @@ interface ContentCardProps {
 export function ContentCard({ item, href, className }: ContentCardProps) {
   const { locale, t } = useLanguage();
 
-  // Category Colors
-  const getCategoryColor = (cat: string) => {
-    if (cat === 'muaythai') return 'bg-[#C2A437]';
-    if (cat === 'football') return 'bg-[#38A169]';
-    if (cat === 'volleyball') return 'bg-[#3182CE]';
-    return 'bg-[#C2A437]';
+  // Category Gradients
+  const getCategoryGradient = (cat: string) => {
+    if (cat === 'muaythai') return 'from-[#FACC15] to-[#94790C]';
+    if (cat === 'football') return 'from-[#4ADE80] to-[#287845]';
+    if (cat === 'volleyball') return 'from-[#0EA5E9] to-[#085D83]';
+    return 'from-[#FACC15] to-[#94790C]';
   };
   const catLabel = item.category === 'muaythai' ? 'กีฬามวยไทย' : item.category === 'boxing' ? 'กีฬามวยสากล' : item.category === 'football' ? 'กีฬาฟุตบอล' : item.category === 'volleyball' ? 'กีฬาวอลเลย์บอล' : item.category;
 
   return (
     <Link href={href} className={cn('group block', className)}>
       <div className="rounded-xl overflow-hidden bg-transparent transition-all duration-300 hover:-translate-y-1">
-        <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-gray-100 shadow-sm">
           <Image
             src={item.thumbnailUrl}
             alt={item.title}
@@ -39,8 +39,8 @@ export function ContentCard({ item, href, className }: ContentCardProps) {
           />
           
           {/* Top Left Badges */}
-          <div className="absolute top-3 left-3 flex items-center shadow-md rounded-r-full rounded-l-md overflow-hidden">
-            <div className={`${getCategoryColor(item.category)} text-white text-[10px] font-bold px-3 py-1 rounded-r-full`}>
+          <div className="absolute top-0 left-0 flex items-start">
+            <div className={`bg-gradient-to-r ${getCategoryGradient(item.category)} text-white text-xs font-bold px-4 md:px-5 py-2 md:py-3 rounded-br-3xl shadow-md z-10`}>
               {catLabel}
             </div>
           </div>
@@ -53,11 +53,11 @@ export function ContentCard({ item, href, className }: ContentCardProps) {
         </div>
         
         {/* Text Below Image */}
-        <div className="pt-3">
-          <h3 className="font-bold text-base md:text-lg text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+        <div className="pt-4 px-1">
+          <h3 className="font-bold text-base md:text-lg text-black line-clamp-2 group-hover:text-primary transition-colors">
             {locale === 'en' && item.titleEn ? item.titleEn : item.title}
           </h3>
-          <p className="text-muted-foreground text-xs mt-1">
+          <p className="text-black/70 text-sm mt-1">
             {item.venue ? `ห้อง 1234 • ${item.venue} • ` : ''}{formatDate(item.dateTime, locale)}
           </p>
         </div>
