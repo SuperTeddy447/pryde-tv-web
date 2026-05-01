@@ -1,13 +1,20 @@
 import type { User } from '@/types/user';
-import type { CoinTransaction, TopupCoinPayload, RedeemCodePayload, UpdateProfilePayload, TvQrCode } from '@/types/account';
+import type { CoinTransaction, CoinTopupPayload, RedeemCodePayload, UpdateProfilePayload, TvQrCode } from '@/types/account';
 import type { PaginatedResponse, PaginationParams } from '@/types/common';
 import { mockUser, mockCoinHistory } from './mockData';
 
-const delay = (ms: number = 600) => new Promise((res) => setTimeout(res, ms));
+const delay = () => {
+  const ms = Math.floor(Math.random() * (800 - 300 + 1)) + 300;
+  return new Promise((res) => setTimeout(res, ms));
+};
 
 export const mockAccountService = {
   async getProfile(): Promise<User> {
     await delay();
+    // Simulate server error occasionally
+    if (Math.random() < 0.05) {
+      throw new Error('Internal Server Error');
+    }
     return { ...mockUser };
   },
 
@@ -17,7 +24,7 @@ export const mockAccountService = {
   },
 
   async getCoinBalance(): Promise<{ balance: number; points: number }> {
-    await delay(300);
+    await delay();
     return { balance: mockUser.coinBalance, points: mockUser.prydePointBalance };
   },
 
@@ -33,8 +40,8 @@ export const mockAccountService = {
     };
   },
 
-  async topupCoin(_payload: TopupCoinPayload): Promise<{ success: boolean; newBalance: number }> {
-    await delay(1000);
+  async topupCoin(_payload: CoinTopupPayload): Promise<{ success: boolean; newBalance: number }> {
+    await delay();
     return { success: true, newBalance: mockUser.coinBalance + _payload.amount };
   },
 

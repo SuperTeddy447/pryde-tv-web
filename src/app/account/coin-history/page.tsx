@@ -9,6 +9,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { formatDateTime, formatCoin } from '@/lib/format';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import type { CoinTransaction } from '@/types/account';
 
 export default function CoinHistoryPage() {
   const { isAuthenticated } = useAuthStore();
@@ -34,7 +35,7 @@ export default function CoinHistoryPage() {
         ) : (
           <div className="bg-card rounded-2xl border border-border/50 overflow-hidden">
             <div className="divide-y divide-border/50">
-              {coinHistory.map((tx) => (
+              {coinHistory.map((tx: CoinTransaction) => (
                 <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
                   <div>
                     <p className="font-medium text-white">{tx.description}</p>

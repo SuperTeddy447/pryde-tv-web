@@ -1,6 +1,6 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getContentService } from '@/services/adapters/contentService';
+import { contentService } from '@/services';
 import { ContentCard } from '@/components/cards/ContentCard';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingCardGrid } from '@/components/shared/LoadingState';
@@ -8,9 +8,8 @@ import { ErrorState } from '@/components/shared/ErrorState';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 
 export default function HighlightsPage() {
-  const service = getContentService();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['highlights'], queryFn: () => service.getHighlights(),
+    queryKey: ['highlights'], queryFn: () => contentService.getHighlights(),
   });
 
   return (

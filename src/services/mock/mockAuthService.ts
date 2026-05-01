@@ -1,11 +1,17 @@
 import type { AuthResponse, LoginWithPhonePayload, RegisterPayload, ForgotPasswordPayload } from '@/types/auth';
 import { mockUser } from './mockData';
 
-const delay = (ms: number = 800) => new Promise((res) => setTimeout(res, ms));
+const delay = () => {
+  const ms = Math.floor(Math.random() * (800 - 300 + 1)) + 300;
+  return new Promise((res) => setTimeout(res, ms));
+};
 
 export const mockAuthService = {
   async loginWithPhone(payload: LoginWithPhonePayload): Promise<AuthResponse> {
     await delay();
+    if (payload.phone === '0000000000') {
+      throw new Error('Invalid phone number or password');
+    }
     return {
       token: 'mock_token_' + Date.now(),
       refreshToken: 'mock_refresh_' + Date.now(),
@@ -14,7 +20,7 @@ export const mockAuthService = {
   },
 
   async loginWithLine(): Promise<AuthResponse> {
-    await delay(1200);
+    await delay();
     return {
       token: 'mock_line_token_' + Date.now(),
       refreshToken: 'mock_line_refresh_' + Date.now(),
@@ -23,7 +29,7 @@ export const mockAuthService = {
   },
 
   async loginWithApple(): Promise<AuthResponse> {
-    await delay(1200);
+    await delay();
     return {
       token: 'mock_apple_token_' + Date.now(),
       refreshToken: 'mock_apple_refresh_' + Date.now(),
@@ -32,7 +38,7 @@ export const mockAuthService = {
   },
 
   async register(payload: RegisterPayload): Promise<AuthResponse> {
-    await delay(1000);
+    await delay();
     return {
       token: 'mock_token_' + Date.now(),
       refreshToken: 'mock_refresh_' + Date.now(),
@@ -46,6 +52,6 @@ export const mockAuthService = {
   },
 
   async logout(): Promise<void> {
-    await delay(300);
+    await delay();
   },
 };

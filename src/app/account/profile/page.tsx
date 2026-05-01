@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getAccountService } from '@/services/adapters/accountService';
+import { accountService } from '@/services';
 import { toast } from 'sonner';
 
 export default function ProfilePage() {
@@ -29,8 +29,7 @@ export default function ProfilePage() {
     if (!name.trim()) return;
     setIsProcessing(true);
     try {
-      const service = getAccountService();
-      const updatedUser = await service.updateProfile({ name });
+      const updatedUser = await accountService.updateProfile({ name });
       setUser(updatedUser);
       toast.success(t('อัปเดตโปรไฟล์สำเร็จ', 'Profile updated successfully'));
     } catch (e) {

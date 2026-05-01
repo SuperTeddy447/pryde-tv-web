@@ -9,7 +9,7 @@ import { COIN_PACKAGES } from '@/lib/constants';
 import { formatCoin, formatCurrency } from '@/lib/format';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getAccountService } from '@/services/adapters/accountService';
+import { accountService } from '@/services';
 import { toast } from 'sonner';
 
 export default function CoinTopupPage() {
@@ -31,8 +31,7 @@ export default function CoinTopupPage() {
 
     setIsProcessing(true);
     try {
-      const service = getAccountService();
-      const res = await service.topupCoin({ amount: pkg.amount, paymentMethod: 'promptpay' });
+      const res = await accountService.topupCoin({ amount: pkg.amount, paymentMethod: 'promptpay' });
       if (res.success) {
         updateCoinBalance(res.newBalance);
         refetchBalance();

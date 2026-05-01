@@ -1,16 +1,15 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getContentService } from '@/services/adapters/contentService';
 import { ContentCard } from '@/components/cards/ContentCard';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingCardGrid } from '@/components/shared/LoadingState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { SectionHeader } from '@/components/shared/SectionHeader';
+import { contentService } from '@/services';
 
 export default function ReplaysPage() {
-  const service = getContentService();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['replays'], queryFn: () => service.getReplays(),
+    queryKey: ['replays'], queryFn: () => contentService.getReplays(),
   });
 
   return (

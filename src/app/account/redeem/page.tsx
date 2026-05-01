@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getAccountService } from '@/services/adapters/accountService';
+import { accountService } from '@/services';
 import { toast } from 'sonner';
 
 export default function RedeemCodePage() {
@@ -27,8 +27,7 @@ export default function RedeemCodePage() {
     if (!code.trim()) return;
     setIsProcessing(true);
     try {
-      const service = getAccountService();
-      const res = await service.redeemCode({ code });
+      const res = await accountService.redeemCode({ code });
       if (res.success) {
         updateCoinBalance(res.newBalance);
         toast.success(t(`แลกสำเร็จ! ได้รับ ${res.amount} เหรียญ`, `Redeemed successfully! Got ${res.amount} coins`));

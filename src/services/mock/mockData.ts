@@ -1,4 +1,4 @@
-import type { ContentItem, NewsItem, Fighter, RankingItem } from '@/types/content';
+import type { ContentItem, NewsItem, Fighter, RankingItem, ResultItem } from '@/types/content';
 import type { LiveItem } from '@/types/live';
 import type { User } from '@/types/user';
 import type { CoinTransaction } from '@/types/account';
@@ -146,7 +146,7 @@ export const mockPrograms: ContentItem[] = Array.from({ length: 8 }, (_, i) => (
   isLive: i === 0, coinPrice: 0, slug: `program-jun-${i + 1}`, venue: i % 2 === 0 ? 'ราชดำเนิน' : 'ลุมพินี',
 }));
 
-export const mockResults: ContentItem[] = Array.from({ length: 8 }, (_, i) => ({
+export const mockResults: ResultItem[] = Array.from({ length: 8 }, (_, i) => ({
   id: `res_${i + 1}`, title: `ผลการแข่งขัน ศึก Pryde Fight #${40 - i}`,
   titleEn: `Results: Pryde Fight #${40 - i}`,
   description: 'ผลการแข่งขันมวยไทย',
@@ -155,6 +155,11 @@ export const mockResults: ContentItem[] = Array.from({ length: 8 }, (_, i) => ({
   category: 'muaythai', type: 'result' as const,
   dateTime: new Date(Date.now() - i * 604800000).toISOString(),
   isLive: false, coinPrice: 0, slug: `result-fight-${40 - i}`,
+  matchups: [
+    { id: `m_${i}_1`, redCorner: 'สมศักดิ์', blueCorner: 'Marcus', weightClass: 'Welterweight', round: 5, status: 'ended', result: 'Red Corner Win' },
+    { id: `m_${i}_2`, redCorner: 'วิชิต', blueCorner: 'Kenji', weightClass: 'Lightweight', round: 3, status: 'ended', result: 'KO Blue Corner' },
+  ],
+  winner: i % 2 === 0 ? 'สมศักดิ์' : 'Kenji',
 }));
 
 // ─── Mock Fighters ──────────────────────────────────

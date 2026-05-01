@@ -1,17 +1,16 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getContentService } from '@/services/adapters/contentService';
 import { FighterCard } from '@/components/cards/FighterCard';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingCardGrid } from '@/components/shared/LoadingState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { SectionHeader } from '@/components/shared/SectionHeader';
+import { contentService } from '@/services';
 import { ROUTES } from '@/lib/constants';
 
 export default function FightersPage() {
-  const service = getContentService();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['fighters'], queryFn: () => service.getFighters(),
+    queryKey: ['fighters'], queryFn: () => contentService.getFighters(),
   });
 
   return (

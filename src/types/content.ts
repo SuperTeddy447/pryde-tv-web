@@ -75,3 +75,13 @@ export interface RankingItem {
   change: 'up' | 'down' | 'same';
   changeAmount: number;
 }
+
+export interface HomeData {
+  heroHighlights: ContentItem[];
+  livePrograms: ContentItem[];
+  highlights: ContentItem[];
+  replays: ContentItem[];
+  results: ResultItem[];
+  news: NewsItem[];
+  fighters: Fighter[];
+}

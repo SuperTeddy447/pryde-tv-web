@@ -1,27 +1,26 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getAccountService } from '@/services/adapters/accountService';
+import { accountService } from '@/services';
 import { useAuthStore } from '@/stores/authStore';
 
 export function useAccount() {
   const { isAuthenticated } = useAuthStore();
-  const service = getAccountService();
 
   const profileQuery = useQuery({
     queryKey: ['profile'],
-    queryFn: () => service.getProfile(),
+    queryFn: () => accountService.getProfile(),
     enabled: isAuthenticated,
   });
 
   const balanceQuery = useQuery({
-    queryKey: ['coin-balance'],
-    queryFn: () => service.getCoinBalance(),
+    queryKey: ['coinBalance'],
+    queryFn: () => accountService.getCoinBalance(),
     enabled: isAuthenticated,
   });
 
   const historyQuery = useQuery({
-    queryKey: ['coin-history'],
-    queryFn: () => service.getCoinHistory(),
+    queryKey: ['coinHistory'],
+    queryFn: () => accountService.getCoinHistory(),
     enabled: isAuthenticated,
   });
 

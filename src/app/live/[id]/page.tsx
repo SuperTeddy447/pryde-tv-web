@@ -4,7 +4,7 @@ import { use } from 'react';
 import { useLiveDetail } from '@/hooks/useLiveDetail';
 import { useAuthStore } from '@/stores/authStore';
 import { useLanguage } from '@/hooks/useLanguage';
-import { getLiveService } from '@/services/adapters/liveService';
+import { liveService } from '@/services';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingState } from '@/components/shared/LoadingState';
 import { ErrorState } from '@/components/shared/ErrorState';
@@ -50,8 +50,7 @@ export default function LiveDetailPage({ params }: { params: Promise<{ id: strin
     if (!isAuthenticated) { openLoginModal(); return; }
     setPurchasing(true);
     try {
-      const service = getLiveService();
-      await service.purchaseLive({ liveId: id });
+      await liveService.purchaseLive({ liveId: id });
       setIsPurchased(true);
       toast.success(t('ซื้อสำเร็จ!', 'Purchase successful!'));
     } catch {

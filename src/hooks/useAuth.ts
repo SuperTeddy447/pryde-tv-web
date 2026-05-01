@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/stores/authStore';
-import { getAuthService } from '@/services/adapters/authService';
+import { authService } from '@/services';
 import type { LoginWithPhonePayload, RegisterPayload, ForgotPasswordPayload } from '@/types/auth';
 import { useState } from 'react';
 
@@ -7,7 +7,7 @@ export function useAuth() {
   const { user, isAuthenticated, setAuth, logout: storeLogout, openLoginModal, closeLoginModal, isLoginModalOpen } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const service = getAuthService();
+  const service = authService;
 
   const loginWithPhone = async (payload: LoginWithPhonePayload) => {
     setIsLoading(true);

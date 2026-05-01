@@ -1,20 +1,19 @@
 'use client';
 import { use } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getContentService } from '@/services/adapters/contentService';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingState } from '@/components/shared/LoadingState';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { useLanguage } from '@/hooks/useLanguage';
 import { formatDate } from '@/lib/format';
+import { contentService } from '@/services';
 import Image from 'next/image';
 
 export default function NewsDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { locale } = useLanguage();
-  const service = getContentService();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['news-detail', id], queryFn: () => service.getNewsDetail(id),
+    queryKey: ['news-detail', id], queryFn: () => contentService.getNewsDetail(id),
   });
 
   if (isLoading) return <div className="pt-20"><LoadingState /></div>;

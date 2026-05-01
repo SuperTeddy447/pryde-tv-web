@@ -1,6 +1,5 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getContentService } from '@/services/adapters/contentService';
 import { RankingCard } from '@/components/cards/RankingCard';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingState } from '@/components/shared/LoadingState';
@@ -8,14 +7,14 @@ import { ErrorState } from '@/components/shared/ErrorState';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { WEIGHT_CLASSES } from '@/lib/constants';
 import { useState } from 'react';
+import { contentService } from '@/services';
 
 export default function RankingPage() {
   const [selectedWeight, setSelectedWeight] = useState<string>(WEIGHT_CLASSES[12]); // Default Middleweight or something
-  const service = getContentService();
   
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['ranking', selectedWeight], 
-    queryFn: () => service.getRanking(), // In real app, pass selectedWeight as filter
+    queryFn: () => contentService.getRanking(), // In real app, pass selectedWeight as filter
   });
 
   return (

@@ -1,4 +1,10 @@
+import type { User } from './user';
+
 export type CoinTransactionType = 'topup' | 'purchase' | 'redeem' | 'refund' | 'tip';
+
+export interface UserProfile extends User {
+  // Add extra profile fields if needed
+}
 
 export interface CoinTransaction {
   id: string;
@@ -9,7 +15,7 @@ export interface CoinTransaction {
   status: 'pending' | 'completed' | 'failed';
 }
 
-export interface TopupCoinPayload {
+export interface CoinTopupPayload {
   amount: number;
   paymentMethod: string;
 }

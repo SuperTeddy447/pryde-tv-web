@@ -1,8 +1,11 @@
-import type { ContentItem, NewsItem, Fighter, RankingItem } from '@/types/content';
+import type { ContentItem, NewsItem, Fighter, RankingItem, HomeData } from '@/types/content';
 import type { PaginatedResponse, FilterParams, PaginationParams } from '@/types/common';
 import { mockHighlights, mockReplays, mockNews, mockPrograms, mockResults, mockFighters, mockRankings } from './mockData';
 
-const delay = (ms: number = 600) => new Promise((res) => setTimeout(res, ms));
+const delay = () => {
+  const ms = Math.floor(Math.random() * (800 - 300 + 1)) + 300;
+  return new Promise((res) => setTimeout(res, ms));
+};
 
 function paginate<T>(items: T[], params?: PaginationParams): PaginatedResponse<T> {
   const page = params?.page ?? 1;
@@ -30,14 +33,19 @@ function filterItems<T extends ContentItem>(items: T[], filters?: FilterParams):
 }
 
 export const mockContentService = {
-  async getHomeData() {
+  async getHomeData(): Promise<HomeData> {
     await delay();
+    if (Math.random() < 0.05) {
+      throw new Error('Home data failed to load');
+    }
     return {
-      highlights: mockHighlights.slice(0, 4),
-      replays: mockReplays.slice(0, 4),
-      news: mockNews.slice(0, 4),
-      programs: mockPrograms.slice(0, 4),
-      fighters: mockFighters.slice(0, 6),
+      heroHighlights: mockHighlights.slice(0, 3),
+      livePrograms: mockPrograms.filter((p) => p.isLive),
+      highlights: mockHighlights,
+      replays: mockReplays,
+      results: mockResults,
+      news: mockNews.slice(0, 5),
+      fighters: mockFighters.slice(0, 10),
     };
   },
 

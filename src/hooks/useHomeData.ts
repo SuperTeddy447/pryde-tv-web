@@ -1,21 +1,17 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getContentService } from '@/services/adapters/contentService';
-import { getLiveService } from '@/services/adapters/liveService';
+import { contentService, liveService } from '@/services';
 
 export function useHomeData() {
-  const contentService = getContentService();
-  const liveService = getLiveService();
-
   const homeQuery = useQuery({
-    queryKey: ['home-data'],
+    queryKey: ['homeData'],
     queryFn: () => contentService.getHomeData(),
   });
 
   const liveQuery = useQuery({
-    queryKey: ['home-live'],
-    queryFn: () => liveService.getLiveList({ page: 1, pageSize: 6 }),
+    queryKey: ['livePrograms'],
+    queryFn: () => liveService.getLiveList({ pageSize: 6 }),
   });
 
   return {

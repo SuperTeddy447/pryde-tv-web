@@ -2,7 +2,10 @@ import type { LiveItem, PurchaseLivePayload, ReportProblemPayload, SendTipPayloa
 import type { PaginatedResponse, PaginationParams } from '@/types/common';
 import { mockLivePrograms } from './mockData';
 
-const delay = (ms: number = 600) => new Promise((res) => setTimeout(res, ms));
+const delay = () => {
+  const ms = Math.floor(Math.random() * (800 - 300 + 1)) + 300;
+  return new Promise((res) => setTimeout(res, ms));
+};
 
 export const mockLiveService = {
   async getLiveList(params?: PaginationParams): Promise<PaginatedResponse<LiveItem>> {
@@ -19,11 +22,19 @@ export const mockLiveService = {
 
   async getLiveDetail(id: string): Promise<LiveItem | null> {
     await delay();
+    // Simulate error for specific ID
+    if (id === 'error-test') {
+      throw new Error('Simulated API Error');
+    }
     return mockLivePrograms.find((l) => l.id === id) ?? null;
   },
 
-  async purchaseLive(_payload: PurchaseLivePayload): Promise<{ success: boolean; message: string }> {
-    await delay(1000);
+  async purchaseLive(payload: PurchaseLivePayload): Promise<{ success: boolean; message: string }> {
+    await delay();
+    // Simulate insufficient coins error
+    if (payload.liveId === 'coin-error') {
+      throw new Error('Insufficient coins');
+    }
     return { success: true, message: 'Purchase successful' };
   },
 

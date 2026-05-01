@@ -6,7 +6,7 @@ import { SectionHeader } from '@/components/shared/SectionHeader';
 import { LoadingState } from '@/components/shared/LoadingState';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getAccountService } from '@/services/adapters/accountService';
+import { accountService } from '@/services';
 import type { TvQrCode } from '@/types/account';
 import Image from 'next/image';
 
@@ -25,8 +25,7 @@ export default function TvQrPage() {
     if (!isAuthenticated) return;
     const fetchQr = async () => {
       try {
-        const service = getAccountService();
-        const data = await service.getTvQrCode();
+        const data = await accountService.getTvQrCode();
         setQrData(data);
       } catch (e) {
         // error handled

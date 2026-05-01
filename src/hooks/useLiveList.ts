@@ -1,8 +1,10 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getLiveService } from '@/services/adapters/liveService';
+import { liveService } from '@/services';
 
 export function useLiveList() {
-  const service = getLiveService();
-  return useQuery({ queryKey: ['live-list'], queryFn: () => service.getLiveList() });
+  return useQuery({
+    queryKey: ['liveList'],
+    queryFn: () => liveService.getLiveList(),
+  });
 }
