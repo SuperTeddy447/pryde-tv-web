@@ -48,7 +48,7 @@ export interface Fighter {
   id: string;
   name: string;
   nameEn?: string;
-  nickname: string;
+  nickname?: string;
   nicknameEn?: string;
   avatarUrl: string;
   coverUrl: string;
@@ -60,6 +60,7 @@ export interface Fighter {
   draws: number;
   ko: number;
   ranking: number;
+  rank?: string;
   bio?: string;
   bioEn?: string;
   height?: string;
