@@ -16,11 +16,11 @@ export default function HomePage() {
   if (isLoading) return <div className="pt-16"><LoadingState /></div>;
   if (isError) return <div className="pt-16"><ErrorState onRetry={refetch} /></div>;
 
-  const heroLive = livePrograms.find((l) => l.status === 'live') ?? livePrograms[0];
+  const heroLives = livePrograms.slice(0, 4); // Show top 4 items in hero carousel
 
   return (
     <div>
-      <HeroLiveSection liveItem={heroLive} />
+      {heroLives.length > 0 && <HeroLiveSection items={heroLives} />}
       {livePrograms.length > 0 && <LiveProgramSection items={livePrograms} />}
       {homeData?.highlights && homeData.highlights.length > 0 && (
         <HighlightSection items={homeData.highlights} />

@@ -15,7 +15,7 @@ export function SectionHeader({ titleTh, titleEn, onViewMore, className }: Secti
 
   return (
     <div className={cn('flex items-center justify-between mb-6', className)}>
-      <h2 className="text-xl md:text-2xl font-bold text-white">
+      <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2">
         {t(titleTh, titleEn)}
       </h2>
       {onViewMore && (

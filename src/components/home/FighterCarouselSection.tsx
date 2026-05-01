@@ -9,17 +9,52 @@ import type { Fighter } from '@/types/content';
 
 interface FighterCarouselSectionProps { fighters: Fighter[]; }
 
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+
 export function FighterCarouselSection({ fighters }: FighterCarouselSectionProps) {
   const router = useRouter();
   return (
-    <section className="py-12 bg-pryde-dark-gray/50">
+    <section className="py-16 bg-[#171717] text-white">
       <ResponsiveContainer>
-        <SectionHeader titleTh="🥊 นักกีฬา" titleEn="🥊 Fighters" onViewMore={() => router.push(ROUTES.FIGHTERS)} />
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-          {fighters.map((fighter) => (
-            <FighterCard key={fighter.id} fighter={fighter} href={ROUTES.FIGHTER_DETAIL(fighter.id)} />
-          ))}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex-1 flex justify-center items-center">
+            <h2 className="text-2xl md:text-3xl font-bold italic text-white">
+              ประวัติ<span className="text-[#C2A437]">นักกีฬา</span>
+            </h2>
+          </div>
+          <button
+            onClick={() => router.push(ROUTES.FIGHTERS)}
+            className="text-sm text-white/70 font-medium hover:text-[#C2A437] transition-colors absolute right-4 md:right-8"
+          >
+            ดูเพิ่มเติม <span className="ml-1">&gt;</span>
+          </button>
         </div>
+
+        <Carousel
+          opts={{ align: 'start', loop: true }}
+          className="w-full relative"
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {fighters.map((fighter) => (
+              <CarouselItem key={fighter.id} className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5">
+                <FighterCard fighter={fighter} href={ROUTES.FIGHTER_DETAIL(fighter.id)} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="hidden md:block">
+            <CarouselPrevious className="absolute -left-12 top-1/3 -translate-y-1/2 border-white/20 bg-transparent text-white hover:bg-white/10" />
+            <CarouselNext className="absolute -right-12 top-1/3 -translate-y-1/2 border-white/20 bg-transparent text-white hover:bg-white/10" />
+          </div>
+          
+          {/* Pagination dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            <span className="w-2 h-2 rounded-full bg-[#C2A437]" />
+            <span className="w-2 h-2 rounded-full bg-white/20" />
+            <span className="w-2 h-2 rounded-full bg-white/20" />
+            <span className="w-2 h-2 rounded-full bg-white/20" />
+            <span className="w-2 h-2 rounded-full bg-white/20" />
+          </div>
+        </Carousel>
       </ResponsiveContainer>
     </section>
   );

@@ -13,10 +13,20 @@ interface ReplaySectionProps { items: ContentItem[]; }
 export function HighlightSection({ items }: HighlightSectionProps) {
   const router = useRouter();
   return (
-    <section className="py-12">
+    <section className="py-12 bg-[#F9FAFB] text-black">
       <ResponsiveContainer>
-        <SectionHeader titleTh="🏆 ไฮไลท์" titleEn="🏆 Highlights" onViewMore={() => router.push(ROUTES.HIGHLIGHTS)} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold italic text-[#4A4A4A]">
+            ไฮไลท์กีฬามันส์ ๆ
+          </h2>
+          <button
+            onClick={() => router.push(ROUTES.HIGHLIGHTS)}
+            className="text-sm text-black font-medium hover:text-[#C2A437] transition-colors"
+          >
+            ดูเพิ่มเติม <span className="ml-1">&gt;</span>
+          </button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {items.map((item) => (
             <ContentCard key={item.id} item={item} href={`${ROUTES.HIGHLIGHTS}#${item.id}`} />
           ))}
@@ -29,10 +39,20 @@ export function HighlightSection({ items }: HighlightSectionProps) {
 export function ReplaySection({ items }: ReplaySectionProps) {
   const router = useRouter();
   return (
-    <section className="py-12 bg-pryde-dark-gray/50">
+    <section className="py-12 bg-white text-black">
       <ResponsiveContainer>
-        <SectionHeader titleTh="📺 ย้อนหลัง" titleEn="📺 Replays" onViewMore={() => router.push(ROUTES.REPLAYS)} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold italic text-[#4A4A4A]">
+            ดูย้อนหลัง<span className="text-[#C2A437]">เต็มอิ่ม</span>
+          </h2>
+          <button
+            onClick={() => router.push(ROUTES.REPLAYS)}
+            className="text-sm text-black font-medium hover:text-[#C2A437] transition-colors"
+          >
+            ดูเพิ่มเติม <span className="ml-1">&gt;</span>
+          </button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {items.map((item) => (
             <ContentCard key={item.id} item={item} href={`${ROUTES.REPLAYS}#${item.id}`} />
           ))}

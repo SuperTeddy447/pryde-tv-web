@@ -16,26 +16,27 @@ export function FighterCard({ fighter, href }: FighterCardProps) {
 
   return (
     <Link href={href} className="group block">
-      <div className="rounded-xl overflow-hidden bg-card border border-border/50 hover:border-gold/50 transition-all duration-300 hover:-translate-y-1 text-center">
-        <div className="relative h-32 overflow-hidden">
-          <Image src={fighter.coverUrl} alt="" fill className="object-cover" sizes="300px" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card" />
+      <div className="flex flex-col items-center group-hover:-translate-y-1 transition-transform duration-300">
+        <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-gradient-to-b from-[#1A1A1A] to-black border border-white/5">
+          <Image 
+            // Mocking portrait image by using avatarUrl or generic portrait URL
+            src={fighter.avatarUrl || 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=400&h=600&fit=crop'} 
+            alt={fighter.name} 
+            fill 
+            className="object-cover group-hover:scale-105 transition-transform duration-500" 
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw" 
+          />
+          {/* PRYDE logo watermark inside the card can be added if needed */}
         </div>
-        <div className="-mt-12 relative z-10 px-4 pb-4">
-          <div className="w-20 h-20 rounded-full mx-auto border-3 border-gold overflow-hidden bg-card">
-            <Image src={fighter.avatarUrl} alt={fighter.name} width={80} height={80} className="object-cover w-full h-full" />
-          </div>
-          <h3 className="font-bold text-white text-sm mt-2 group-hover:text-gold transition-colors">
-            {locale === 'en' && fighter.nameEn ? fighter.nameEn : fighter.name}
-          </h3>
-          <p className="text-xs text-gold">{locale === 'en' && fighter.nicknameEn ? fighter.nicknameEn : fighter.nickname}</p>
-          <p className="text-xs text-muted-foreground mt-1">{fighter.weightClass}</p>
-          <p className="text-xs text-muted-foreground mt-1">{formatRecord(fighter.wins, fighter.losses, fighter.draws)}</p>
-          {fighter.ranking <= 10 && (
-            <span className="inline-block mt-2 text-xs bg-gold/10 text-gold px-2 py-0.5 rounded-full">
-              #{fighter.ranking} {t('อันดับ', 'Ranked')}
-            </span>
-          )}
+        
+        <h3 className="font-bold text-white text-base md:text-lg mb-2 group-hover:text-[#C2A437] transition-colors text-center line-clamp-1">
+          {locale === 'en' && fighter.nameEn ? fighter.nameEn : fighter.name}
+        </h3>
+        
+        <div className="border border-white/20 rounded-full px-3 py-1">
+          <span className="text-[10px] text-white/60">
+            นักกีฬามวยไทย
+          </span>
         </div>
       </div>
     </Link>
