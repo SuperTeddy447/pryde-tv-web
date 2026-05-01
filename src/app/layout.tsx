@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/layout/Header";
@@ -7,9 +7,10 @@ import { Footer } from "@/components/layout/Footer";
 import { LoginModal } from "@/components/auth/LoginModal";
 import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const kanit = Kanit({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin", "thai"],
+  variable: "--font-kanit",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={inter.variable}>
+    <html lang="th" className={kanit.variable}>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <Providers>
           <Header />
