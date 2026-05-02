@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, ROUTES } from '@/lib/constants';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -22,7 +23,15 @@ export function Header() {
   }, []);
 
   const isHomePage = pathname === ROUTES.HOME || pathname === '/';
-  const isDarkTheme = isHomePage && !scrolled;
+  
+  // Check if it's a 404 page (not a known route)
+  const isKnownRoute = Object.values(ROUTES).some(route => 
+    typeof route === 'string' ? pathname === route : false
+  ) || pathname.startsWith('/live/') || pathname.startsWith('/news/') || pathname.startsWith('/fighters/');
+  
+  const is404 = !isKnownRoute;
+
+  const isDarkTheme = (isHomePage || is404) && !scrolled;
 
   return (
     <header
@@ -36,8 +45,14 @@ export function Header() {
           {/* Left: Mobile menu + Logo */}
           <div className="flex items-center gap-2">
             <MobileNav />
-            <Link href="/" className="text-gradient-gold text-xl md:text-2xl font-bold tracking-wide">
-              PRYDE TV
+            <Link href="/" className="flex items-center">
+              <Image 
+                src="/logo-500 1.svg" 
+                alt="Pryde TV Logo" 
+                width={120} 
+                height={40} 
+                className="h-8 md:h-10 w-auto object-contain"
+              />
             </Link>
           </div>
 

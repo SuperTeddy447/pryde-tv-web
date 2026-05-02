@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { FighterCard } from '@/components/cards/FighterCard';
+import { FighterCardDetailed } from '@/components/cards/FighterCardDetailed';
 import { ResponsiveContainer } from '@/components/shared/ResponsiveContainer';
 import { LoadingCardGrid } from '@/components/shared/LoadingState';
 import { ErrorState } from '@/components/shared/ErrorState';
@@ -82,7 +82,7 @@ export default function FightersPage() {
         {data && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.items.map((fighter) => (
-              <FighterCard key={fighter.id} fighter={fighter} href={ROUTES.FIGHTER_DETAIL(fighter.id)} />
+              <FighterCardDetailed key={fighter.id} fighter={fighter} href={ROUTES.FIGHTER_DETAIL(fighter.id)} />
             ))}
           </div>
         )}

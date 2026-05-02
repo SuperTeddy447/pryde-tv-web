@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <>
-      <footer className="bg-white border-t border-gray-200 mt-16 text-[#4A4A4A]">
+      <footer className="bg-white border-t border-gray-200 text-[#4A4A4A]">
         <ResponsiveContainer className="py-4">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
             {/* Left: Copyright */}
