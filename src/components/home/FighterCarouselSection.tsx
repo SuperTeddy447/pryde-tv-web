@@ -16,15 +16,15 @@ export function FighterCarouselSection({ fighters }: FighterCarouselSectionProps
   return (
     <section className="py-16 bg-[#171717] text-white">
       <ResponsiveContainer>
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-10 relative">
           <div className="flex-1 flex justify-center items-center">
-            <h2 className="text-2xl md:text-3xl font-bold italic text-white">
+            <h2 className="text-3xl md:text-[48px] font-medium text-white">
               ประวัติ<span className="text-[#C2A437]">นักกีฬา</span>
             </h2>
           </div>
           <button
             onClick={() => router.push(ROUTES.FIGHTERS)}
-            className="text-sm text-white/70 font-medium hover:text-[#C2A437] transition-colors absolute right-4 md:right-8"
+            className="text-sm text-white/70 font-medium hover:text-[#C2A437] transition-colors absolute right-0"
           >
             ดูเพิ่มเติม <span className="ml-1">&gt;</span>
           </button>

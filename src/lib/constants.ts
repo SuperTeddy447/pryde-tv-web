@@ -30,9 +30,8 @@ export const NAV_ITEMS = [
   { labelTh: 'หน้าหลัก', labelEn: 'Home', href: ROUTES.HOME },
   { labelTh: 'ดูไลฟ์สด', labelEn: 'Live', href: ROUTES.LIVE },
   { labelTh: 'โปรแกรมกีฬา', labelEn: 'Programs', href: ROUTES.PROGRAMS },
-  { labelTh: 'ทายผลแข่งขัน', labelEn: 'Prediction', href: ROUTES.PREDICTION },
+  { labelTh: 'ทายผลการแข่งขัน', labelEn: 'Prediction', href: ROUTES.PREDICTION },
   { labelTh: 'ประวัตินักกีฬา', labelEn: 'Fighters', href: ROUTES.FIGHTERS },
-  { labelTh: 'อันดับนักกีฬา', labelEn: 'Ranking', href: ROUTES.RANKING },
 ] as const;
 
 export const CATEGORIES = [

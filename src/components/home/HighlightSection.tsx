@@ -15,8 +15,8 @@ export function HighlightSection({ items }: HighlightSectionProps) {
   return (
     <section className="py-12 bg-[#F9FAFB] text-black">
       <ResponsiveContainer>
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold italic text-[#4A4A4A]">
+        <div className="flex items-center gap-4 mb-10">
+          <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
             ไฮไลท์กีฬามันส์ ๆ
           </h2>
           <button
@@ -41,9 +41,9 @@ export function ReplaySection({ items }: ReplaySectionProps) {
   return (
     <section className="py-12 bg-white text-black">
       <ResponsiveContainer>
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold italic text-[#4A4A4A]">
-            ดูย้อนหลัง<span className="text-[#C2A437]">เต็มอิ่ม</span>
+        <div className="flex items-center gap-4 mb-10">
+          <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
+            เต็มแมทช์<span className="text-[#C2A437]">ย้อนหลัง</span>
           </h2>
           <button
             onClick={() => router.push(ROUTES.REPLAYS)}

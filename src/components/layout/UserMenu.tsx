@@ -25,8 +25,7 @@ export function UserMenu({ isDark = true }: { isDark?: boolean }) {
     return (
       <Button
         onClick={openLoginModal}
-        className="bg-gold hover:bg-gold-light text-white font-semibold text-sm rounded-lg px-6"
-        size="sm"
+        className="bg-[#C2A437] hover:bg-[#DFB943] text-white font-medium text-[18px] rounded-md px-6 h-[44px] transition-all"
       >
         {t('เข้าสู่ระบบ', 'Sign In')}
       </Button>
@@ -39,27 +38,27 @@ export function UserMenu({ isDark = true }: { isDark?: boolean }) {
       <Link 
         href={ROUTES.ACCOUNT_COIN} 
         className={cn(
-          "hidden md:flex items-center gap-1.5 text-sm transition-colors",
+          "hidden md:flex items-center gap-2 text-[18px] font-medium transition-colors h-[44px] px-3 rounded-md",
           isDark 
-            ? "bg-[#1E1E1E]/80 hover:bg-[#1E1E1E] border border-white/10 rounded-md px-2 py-1.5 text-white" 
-            : "bg-transparent text-black px-0.5"
+            ? "bg-[#1E1E1E]/80 hover:bg-[#1E1E1E] border border-white/10 text-white" 
+            : "bg-gray-100 hover:bg-gray-200 border border-gray-200 text-black"
         )}
       >
-        <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-gradient-to-r from-[#FACC15] to-[#94790C] text-black flex items-center justify-center text-[8px] md:text-[10px] font-bold">★</span>
-        <span className="font-semibold">{formatCoin(user.coinBalance || 10000)}</span>
+        <span className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-gradient-to-r from-[#FACC15] to-[#94790C] text-black flex items-center justify-center text-[10px] md:text-[12px] font-bold shadow-sm">★</span>
+        <span>{formatCoin(user.coinBalance || 10000)}</span>
       </Link>
       
       {/* Silver Point (P) */}
       <div 
         className={cn(
-          "hidden md:flex items-center gap-1.5 text-sm",
+          "hidden md:flex items-center gap-2 text-[18px] font-medium h-[44px] px-3 rounded-md",
           isDark 
-            ? "bg-[#1E1E1E]/80 border border-white/10 rounded-md px-2 py-1.5 text-white" 
-            : "bg-transparent text-black px-0.5"
+            ? "bg-[#1E1E1E]/80 border border-white/10 text-white" 
+            : "bg-gray-100 border border-gray-200 text-black"
         )}
       >
-        <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-gray-300 text-black flex items-center justify-center text-[8px] md:text-[10px] font-bold">P</span>
-        <span className="font-semibold">{formatCoin(10000)}</span>
+        <span className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-gray-300 text-black flex items-center justify-center text-[10px] md:text-[12px] font-bold shadow-sm">P</span>
+        <span>{formatCoin(10000)}</span>
       </div>
 
       {/* User Avatar & Dropdown */}
@@ -68,21 +67,21 @@ export function UserMenu({ isDark = true }: { isDark?: boolean }) {
           render={
             <button 
               className={cn(
-                "flex items-center gap-1.5 transition-colors focus:outline-none",
+                "flex items-center gap-2 transition-colors focus:outline-none h-[44px] px-2 md:px-3 rounded-md",
                 isDark 
-                  ? "bg-[#1E1E1E]/80 hover:bg-[#1E1E1E] border border-white/10 rounded-md pl-1 pr-2 md:pr-3 py-1 md:py-1.5" 
-                  : "bg-transparent pl-0.5 pr-1.5 py-1"
+                  ? "bg-[#1E1E1E]/80 hover:bg-[#1E1E1E] border border-white/10" 
+                  : "bg-gray-100 hover:bg-gray-200 border border-gray-200"
               )}
             >
-              <Avatar className="w-6 h-6 md:w-7 md:h-7">
+              <Avatar className="w-7 h-7 md:w-8 md:h-8">
                 <AvatarImage src={user.avatarUrl} alt={user.name} />
-                <AvatarFallback className="bg-gold text-black text-xs">{user.name[0]}</AvatarFallback>
+                <AvatarFallback className="bg-[#C2A437] text-white text-xs">{user.name[0]}</AvatarFallback>
               </Avatar>
               <span className={cn(
-                "text-sm font-semibold hidden md:inline-block",
+                "text-[18px] font-medium hidden md:inline-block",
                 isDark ? "text-white" : "text-black"
               )}>
-                (1234) {user.name}
+                {user.name}
               </span>
             </button>
           }

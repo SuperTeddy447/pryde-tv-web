@@ -14,9 +14,9 @@ export function NewsSection({ items }: NewsSectionProps) {
   return (
     <section className="py-12 bg-[#F9FAFB] text-black">
       <ResponsiveContainer>
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold italic text-[#4A4A4A]">
-            ข่าว<span className="text-[#C2A437]">กีฬา</span>
+        <div className="flex items-center gap-4 mb-10">
+          <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
+            ข่าวสาร<span className="text-[#C2A437]">กีฬา</span>
           </h2>
           <button
             onClick={() => router.push(ROUTES.NEWS)}

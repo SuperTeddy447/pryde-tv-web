@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/hooks/useLanguage';
 import { formatDateTime } from '@/lib/format';
 import type { LiveItem } from '@/types/live';
+import { cn } from '@/lib/utils';
 
 interface LiveCardProps {
   item: LiveItem;
@@ -47,9 +48,18 @@ export function LiveCard({ item, href }: LiveCardProps) {
             <div className={`bg-gradient-to-r ${getCategoryGradient(item.category)} text-white text-xs font-bold px-4 md:px-5 py-2 md:py-3 rounded-br-3xl shadow-md z-10`}>
               {catLabel}
             </div>
-            <div className={`mt-2 md:mt-3 ml-2 ${status.bg} text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md z-10`}>
-              {item.status === 'live' && <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />}
-              {status.label}
+            <div className={cn(
+              "mt-2 md:mt-3 ml-2 text-white text-[14px] font-medium w-[105px] h-[32px] flex items-center justify-center gap-1.5 shadow-md z-10 rounded-full",
+              status.bg
+            )}>
+              {item.status === 'live' ? (
+                <>
+                  <Image src="/live_logo.svg" alt="Live" width={40} height={14} className="h-3.5 w-auto object-contain brightness-0 invert" />
+                  <span className="uppercase tracking-tight">NOW</span>
+                </>
+              ) : (
+                status.label
+              )}
             </div>
           </div>
 

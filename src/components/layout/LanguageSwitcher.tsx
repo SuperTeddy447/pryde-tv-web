@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { Locale } from '@/types/common';
 import { cn } from '@/lib/utils';
+import { ChevronDown } from 'lucide-react';
 
 export function LanguageSwitcher({ isDark = true }: { isDark?: boolean }) {
   const { locale, setLocale } = useLanguageStore();
@@ -23,14 +24,14 @@ export function LanguageSwitcher({ isDark = true }: { isDark?: boolean }) {
         render={
           <button
             className={cn(
-              'border rounded-md px-2 py-1.5 h-auto flex items-center gap-1.5 text-sm font-medium transition-colors focus:outline-none',
+              'border rounded-md px-3 h-[44px] flex items-center gap-2 text-[18px] font-medium transition-colors focus:outline-none',
               isDark 
                 ? 'bg-[#1E1E1E]/80 hover:bg-[#1E1E1E] border-white/10 text-white' 
-                : 'bg-white hover:bg-gray-50 border-gray-300 text-black'
+                : 'bg-gray-100 hover:bg-gray-200 border-gray-200 text-black'
             )}
           >
             {locale === 'th' ? 'ไทย' : 'EN'}
-            <span className={cn("text-[10px]", isDark ? "text-white/70" : "text-gray-500")}>▼</span>
+            <ChevronDown className={cn("w-4 h-4", isDark ? "text-white" : "text-gray-500")} />
           </button>
         }
       />

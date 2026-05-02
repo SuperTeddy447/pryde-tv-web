@@ -66,8 +66,9 @@ export function HeroLiveSection({ items }: HeroLiveSectionProps) {
                   <div className="max-w-[1440px] mx-auto px-2 md:px-4 lg:px-6 w-full">
                     <div className="max-w-2xl animate-fade-in-up">
                       {item.status === 'live' && (
-                        <Badge className="bg-pryde-red text-white border-none mb-4 text-sm live-badge animate-pulse-gold">
-                          🔴 LIVE NOW
+                        <Badge className="bg-pryde-red text-white border-none mb-4 text-[14px] font-medium w-[105px] h-[32px] flex items-center justify-center gap-2 rounded-full shadow-lg">
+                          <Image src="/live_logo.svg" alt="Live" width={50} height={14} className="h-3.5 w-auto object-contain brightness-0 invert" />
+                          <span className="uppercase tracking-tight">NOW</span>
                         </Badge>
                       )}
                       {item.status === 'upcoming' && (
@@ -89,10 +90,15 @@ export function HeroLiveSection({ items }: HeroLiveSectionProps) {
 
                       <div className="flex flex-col sm:flex-row gap-3">
                         <Link href={ROUTES.LIVE_DETAIL(item.id)}>
-                          <Button className="bg-gold hover:bg-gold-light text-black font-bold text-base h-12 px-8 rounded-xl">
-                            {item.status === 'live'
-                              ? t('ดูถ่ายทอดสด', 'Watch Live')
-                              : t('ดูรายละเอียด', 'View Details')}
+                          <Button className="bg-[#C2A437] hover:bg-[#DFB943] text-black font-bold text-base h-12 px-8 rounded-xl flex items-center gap-2">
+                            {item.status === 'live' ? (
+                              <>
+                                <Image src="/live_logo.svg" alt="Live" width={40} height={12} className="h-3 w-auto object-contain brightness-0" />
+                                <span>{t('ดูถ่ายทอดสด', 'Watch Live')}</span>
+                              </>
+                            ) : (
+                              t('ดูรายละเอียด', 'View Details')
+                            )}
                           </Button>
                         </Link>
                         <Link href={ROUTES.PROGRAMS}>
