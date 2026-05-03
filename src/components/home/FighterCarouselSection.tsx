@@ -19,7 +19,7 @@ export function FighterCarouselSection({ fighters }: FighterCarouselSectionProps
         <div className="flex items-center justify-between mb-10 relative">
           <div className="flex-1 flex justify-center items-center">
             <h2 className="text-3xl md:text-[48px] font-medium text-white">
-              ประวัติ<span className="text-[#C2A437]">นักกีฬา</span>
+              <span className="italic">ประวัติ</span><span className="text-[#C2A437]">นักกีฬา</span>
             </h2>
           </div>
           <button

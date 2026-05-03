@@ -17,7 +17,7 @@ export function HighlightSection({ items }: HighlightSectionProps) {
       <ResponsiveContainer>
         <div className="flex items-center gap-4 mb-10">
           <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
-            ไฮไลท์กีฬามันส์ ๆ
+            <span className="italic">ไฮไลท์</span><span className="text-[#C2A437]">กีฬามันส์ ๆ</span>
           </h2>
           <button
             onClick={() => router.push(ROUTES.HIGHLIGHTS)}
@@ -43,7 +43,7 @@ export function ReplaySection({ items }: ReplaySectionProps) {
       <ResponsiveContainer>
         <div className="flex items-center gap-4 mb-10">
           <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
-            เต็มแมทช์<span className="text-[#C2A437]">ย้อนหลัง</span>
+            <span className="italic">เต็มแมทช์</span><span className="text-[#C2A437]">ย้อนหลัง</span>
           </h2>
           <button
             onClick={() => router.push(ROUTES.REPLAYS)}

@@ -16,7 +16,7 @@ export function NewsSection({ items }: NewsSectionProps) {
       <ResponsiveContainer>
         <div className="flex items-center gap-4 mb-10">
           <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
-            ข่าวสาร<span className="text-[#C2A437]">กีฬา</span>
+            <span className="italic">ข่าวสาร</span><span className="text-[#C2A437]">กีฬา</span>
           </h2>
           <button
             onClick={() => router.push(ROUTES.NEWS)}

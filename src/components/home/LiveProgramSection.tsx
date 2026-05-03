@@ -33,7 +33,7 @@ export function LiveProgramSection({ items }: LiveProgramSectionProps) {
             {/* Centered title */}
             <div className="flex-1 flex justify-center items-center gap-3">
               <h2 className="text-3xl md:text-[48px] font-medium text-[#4A4A4A]">
-                โปรแกรม<span className="text-[#C2A437]">ถ่ายทอดสด</span>
+                <span className="italic">โปรแกรม</span><span className="text-[#C2A437]">ถ่ายทอดสด</span>
               </h2>
               <div className="bg-[#E53E3E] text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
