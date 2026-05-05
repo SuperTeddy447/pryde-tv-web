@@ -14,8 +14,7 @@ import Image from 'next/image';
 import { ROUTES } from '@/lib/constants';
 import { useEffect, useState, Suspense } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import { PhoneInput } from 'react-international-phone';
-import 'react-international-phone/style.css';
+import { PhoneInputWithCountry } from '@/components/auth/PhoneInputWithCountry';
 import { parsePhoneNumber } from 'libphonenumber-js';
 
 
@@ -109,21 +108,12 @@ function SignInContent() {
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4">
           <div className="flex flex-col gap-1 phone-input-container">
-            <label htmlFor="member_phone" className="text-[12px] font-normal text-[#404040]">
-              {t('เบอร์โทรศัพท์', 'Phone Number')}
-            </label>
-            <PhoneInput
-              defaultCountry="th"
+            <PhoneInputWithCountry
               value={watch('member_phone')}
               onChange={(phone) => setValue('member_phone', phone)}
-              forceDialCode
               placeholder={t('กรอกเบอร์โทรศัพท์', 'Enter phone number')}
-              inputClassName="!w-full !min-h-[40px] !px-3 !border !border-[#d3d3d3] !rounded-md !text-[14px] !text-[#0a0a0a] !bg-white focus:!border-[#bba556] focus:!ring-[#bba556]"
-              countrySelectorStyleProps={{
-                buttonClassName: "!min-h-[40px] !border !border-[#d3d3d3] !border-r-0 !rounded-l-md !bg-[#f5f5f5] !px-2 !min-w-[80px]"
-              }}
+              error={errors.member_phone?.message}
             />
-            {errors.member_phone && <p className="text-xs text-red-500">{errors.member_phone.message}</p>}
           </div>
 
           <div className="flex flex-col gap-1">

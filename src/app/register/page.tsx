@@ -13,8 +13,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import { PhoneInput } from 'react-international-phone';
-import 'react-international-phone/style.css';
+import { PhoneInputWithCountry } from '@/components/auth/PhoneInputWithCountry';
 import { parsePhoneNumber } from 'libphonenumber-js';
 
 
@@ -119,21 +118,13 @@ export default function RegisterPage() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4">
-          {/* Phone */}
           <div className="flex flex-col gap-1 phone-input-container">
-            <label className="text-[12px] font-normal">{t('เบอร์โทรศัพท์', 'Phone Number')}</label>
-            <PhoneInput
-              defaultCountry="th"
+            <PhoneInputWithCountry
               value={watch('member_phone')}
               onChange={(phone) => setValue('member_phone', phone)}
-              forceDialCode
               placeholder={t('กรอกเบอร์โทรศัพท์', 'Enter phone number')}
-              inputClassName="!w-full !min-h-[36px] !px-3 !border !border-[#d3d3d3] !rounded-md !text-[14px] !text-[#0a0a0a] !bg-white focus:!border-[#bba556]"
-              countrySelectorStyleProps={{
-                buttonClassName: "!min-h-[36px] !border !border-[#d3d3d3] !border-r-0 !rounded-l-md !bg-[#f5f5f5] !px-2 !min-w-[80px]"
-              }}
+              error={errors.member_phone?.message}
             />
-            {errors.member_phone && <p className="text-xs text-red-500">{errors.member_phone.message}</p>}
           </div>
 
 
