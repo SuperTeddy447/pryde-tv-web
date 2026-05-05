@@ -20,9 +20,8 @@ export default function CoinTopupPage() {
   const [selectedPkg, setSelectedPkg] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  useEffect(() => {
-    if (!isAuthenticated) router.push('/');
-  }, [isAuthenticated, router]);
+  // Auth is handled by layout AuthGuard
+
 
   const handleTopup = async () => {
     if (!selectedPkg) return;
@@ -44,8 +43,6 @@ export default function CoinTopupPage() {
       setIsProcessing(false);
     }
   };
-
-  if (!isAuthenticated) return null;
 
   return (
     <div className="pt-20 pb-12">

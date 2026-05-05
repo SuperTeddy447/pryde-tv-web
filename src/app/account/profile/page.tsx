@@ -18,12 +18,10 @@ export default function ProfilePage() {
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) router.push('/');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (user && !name) setName(user.name);
-  }, [isAuthenticated, router]);
+  }, [user, name]);
 
-  if (!isAuthenticated || !user) return null;
+  if (!user) return null;
 
   const handleUpdate = async () => {
     if (!name.trim()) return;

@@ -20,14 +20,9 @@ export default function AccountPage() {
   const { t, locale } = useLanguage();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated, router]);
-
-  if (!isAuthenticated || !user) return null;
+  // Auth is handled by layout AuthGuard
   if (isLoading) return <div className="pt-24 bg-white min-h-screen"><LoadingState /></div>;
+  if (!user) return null;
 
   return (
     <div className="pt-16 pb-12 bg-[#F8F9FA] min-h-screen font-kanit">

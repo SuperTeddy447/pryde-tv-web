@@ -14,6 +14,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ROUTES } from '@/lib/constants';
 import { Eye, EyeOff } from 'lucide-react';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
+import { parsePhoneNumber } from 'libphonenumber-js';
+
 
 const loginSchema = z.object({
   member_phone: z.string().min(9, 'กรุณากรอกเบอร์โทรศัพท์'),
@@ -28,12 +32,33 @@ export function LoginModal() {
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    const success = await loginWithPhone(data);
+    // Extract clean phone and country code
+    let cleanPhone = data.member_phone;
+    let countryCode = 'TH';
+    let countryCallingCode = '+66';
+
+    try {
+      const parsed = parsePhoneNumber(data.member_phone);
+      if (parsed) {
+        cleanPhone = parsed.nationalNumber;
+        countryCode = parsed.country || 'TH';
+        countryCallingCode = `+${parsed.countryCallingCode}`;
+      }
+    } catch (e) {
+      // Fallback to raw if parsing fails
+    }
+
+    const success = await loginWithPhone({
+      member_phone: cleanPhone,
+      member_password: data.member_password,
+      countryCode,
+      countryCallingCode
+    });
     if (success) closeLoginModal();
   };
 
@@ -42,7 +67,7 @@ export function LoginModal() {
       <DialogContent className="bg-white border border-[#d4d4d4] sm:max-w-[450px] p-0 overflow-hidden max-h-[95vh] overflow-y-auto rounded-2xl shadow-xl">
         {/* Logo */}
         <div className="flex justify-center pt-6 pb-2">
-          <Image src="/img/logo-500.png" alt="PRYDE TV" width={200} height={80} className="object-contain" />
+          <Image src="/logo-500.svg" alt="PRYDE TV" width={200} height={80} className="object-contain" />
         </div>
 
         {/* Heading */}
@@ -53,16 +78,21 @@ export function LoginModal() {
         </div>
 
         <div className="px-6 pb-6 space-y-3">
-          {/* Phone login form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 phone-input-container">
               <label className="text-[12px] font-normal text-[#404040]">
                 {t('เบอร์โทรศัพท์', 'Phone Number')}
               </label>
-              <Input
-                {...register('member_phone')}
-                placeholder="0812345678"
-                className="min-h-[40px] px-3 border border-[#d3d3d3] rounded-md text-[14px] text-[#0a0a0a] bg-white focus:border-[#bba556] focus:ring-[#bba556]"
+              <PhoneInput
+                defaultCountry="th"
+                value={watch('member_phone')}
+                onChange={(phone) => setValue('member_phone', phone)}
+                forceDialCode
+                placeholder={t('กรอกเบอร์โทรศัพท์', 'Enter phone number')}
+                inputClassName="!w-full !min-h-[40px] !px-3 !border !border-[#d3d3d3] !rounded-md !text-[14px] !text-[#0a0a0a] !bg-white focus:!border-[#bba556] focus:!ring-[#bba556]"
+                countrySelectorStyleProps={{
+                  buttonClassName: "!min-h-[40px] !border !border-[#d3d3d3] !border-r-0 !rounded-l-md !bg-[#f5f5f5] !px-2 !min-w-[80px]"
+                }}
               />
               {errors.member_phone && <p className="text-xs text-red-500">{errors.member_phone.message}</p>}
             </div>

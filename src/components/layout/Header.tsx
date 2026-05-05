@@ -48,7 +48,7 @@ export function Header() {
             <MobileNav />
             <Link href="/" className="flex items-center mr-8">
               <Image 
-                src="/logo-500 1.svg" 
+                src="/logo-500.svg" 
                 alt="Pryde TV Logo" 
                 width={128} 
                 height={80} 
