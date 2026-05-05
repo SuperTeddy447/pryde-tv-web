@@ -4,33 +4,36 @@ import type { PaginatedResponse, PaginationParams } from '@/types/common';
 import type { User } from '@/types/user';
 
 export const realAccountService = {
-  async getProfile(): Promise<UserProfile> {
-    const { data } = await apiClient.get('/account/profile');
+  async getProfile(): Promise<any> {
+    const member_id = typeof window !== 'undefined' ? localStorage.getItem('member_id') : '';
+    const { data } = await apiClient.get('/auth/member/profile', { params: { member_id } });
     return data;
   },
 
-  async updateProfile(payload: Partial<User>): Promise<User> {
-    const { data } = await apiClient.patch('/account/profile', payload);
+  async updateProfile(payload: Partial<User>): Promise<any> {
+    const member_id = typeof window !== 'undefined' ? localStorage.getItem('member_id') : '';
+    const { data } = await apiClient.put(`/auth/member/profile/update/${member_id}`, payload);
     return data;
   },
 
-  async getCoinBalance(): Promise<{ balance: number; points: number }> {
-    const { data } = await apiClient.get('/account/balance');
+  async getCoinBalance(): Promise<any> {
+    const member_id = typeof window !== 'undefined' ? localStorage.getItem('member_id') : '';
+    const { data } = await apiClient.get('/auth/member/wallet', { params: { member_id } });
     return data;
   },
 
   async getCoinHistory(params?: PaginationParams): Promise<PaginatedResponse<CoinTransaction>> {
-    const { data } = await apiClient.get('/account/transactions', { params });
+    const { data } = await apiClient.get('/account/transactions', { params }); // Adjust if there's a legacy endpoint
     return data;
   },
 
   async topupCoin(payload: CoinTopupPayload): Promise<{ success: boolean; newBalance: number }> {
-    const { data } = await apiClient.post('/account/topup', payload);
+    const { data } = await apiClient.post('/account/topup', payload); // Adjust if there's a legacy endpoint
     return data;
   },
 
-  async redeemCode(payload: RedeemCodePayload): Promise<{ success: boolean; amount: number; newBalance: number }> {
-    const { data } = await apiClient.post('/account/redeem', payload);
+  async redeemCode(payload: RedeemCodePayload): Promise<any> {
+    const { data } = await apiClient.post('redeem/useRedeem', payload);
     return data;
   },
 

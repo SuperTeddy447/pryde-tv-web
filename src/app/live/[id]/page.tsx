@@ -12,39 +12,22 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { formatDateTime, formatCoin } from '@/lib/format';
 import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import { LivePlayer } from '@/components/video/LivePlayer';
 
 export default function LiveDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { data: liveItem, isLoading, isError, refetch } = useLiveDetail(id);
-  const { isAuthenticated, openLoginModal } = useAuthStore();
+  const { isAuthenticated, openLoginModal, user } = useAuthStore();
   const { locale, t } = useLanguage();
   const [isPurchased, setIsPurchased] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (liveItem?.isPurchased) setIsPurchased(true);
   }, [liveItem]);
-
-  // Initialize HLS player when purchased
-  useEffect(() => {
-    if (!isPurchased || !liveItem?.streamUrl || !videoRef.current) return;
-
-    const initPlayer = async () => {
-      const Hls = (await import('hls.js')).default;
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(liveItem.streamUrl);
-        hls.attachMedia(videoRef.current!);
-      } else if (videoRef.current?.canPlayType('application/vnd.apple.mpegurl')) {
-        videoRef.current.src = liveItem.streamUrl;
-      }
-    };
-    initPlayer();
-  }, [isPurchased, liveItem?.streamUrl]);
 
   const handlePurchase = async () => {
     if (!isAuthenticated) { openLoginModal(); return; }
@@ -71,16 +54,14 @@ export default function LiveDetailPage({ params }: { params: Promise<{ id: strin
       {/* Player / Purchase area */}
       <div className="bg-black">
         {isPurchased ? (
-          <div className="max-w-5xl mx-auto">
-            <div className="relative aspect-video bg-black">
-              <video
-                ref={videoRef}
-                controls
-                autoPlay
-                className="w-full h-full"
-                poster={liveItem.coverUrl}
-              />
-            </div>
+          <div className="max-w-5xl mx-auto p-4 md:p-8">
+            <LivePlayer 
+              streamUrl={liveItem.streamUrl}
+              matchId={id}
+              memberId={user?.id}
+              watchToken={liveItem.watch_token} // assuming it exists in the item
+              className="shadow-2xl shadow-gold/10"
+            />
           </div>
         ) : (
           <div className="relative aspect-video max-w-5xl mx-auto overflow-hidden">

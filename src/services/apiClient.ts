@@ -12,6 +12,9 @@ const apiClient = axios.create({
 // Request interceptor to attach auth token
 apiClient.interceptors.request.use(
   (config) => {
+    // Add secret key from legacy project
+    config.headers['secretkey'] = 'qMzBNWTWMwuntYPENeUspQmVmgzTnR';
+
     if (typeof window !== 'undefined') {
       const storage = localStorage.getItem('pryde-auth-storage');
       if (storage) {
@@ -35,15 +38,21 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // TODO: Handle 401 unauthorized - refresh token or redirect to login
-    if (error.response?.status === 401) {
-      // Clear auth state and redirect to login
-      if (typeof window !== 'undefined') {
+    const { response } = error;
+    
+    if (typeof window !== 'undefined' && response) {
+      const message = response?.data?.message;
+      const errorsMsg = response?.data?.errors;
+
+      if (message === "Member not found" || errorsMsg === "account has been suspended" || errorsMsg === "account has been banned") {
         localStorage.removeItem('pryde-auth-storage');
-        // window.location.href = '/th/login';
+        window.location.href = `/sign-in?status=ban`;
+      } else if (response.status === 401) {
+        localStorage.removeItem('pryde-auth-storage');
+        // window.location.href = '/login';
       }
     }
-    return Promise.reject(error);
+    return Promise.reject(response?.data || error);
   }
 );
 

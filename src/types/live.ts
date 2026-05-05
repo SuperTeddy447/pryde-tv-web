@@ -15,6 +15,7 @@ export interface LiveItem {
   category: string;
   venue: string;
   matchCount: number;
+  watch_token?: string;
 }
 
 export interface PurchaseLivePayload {
