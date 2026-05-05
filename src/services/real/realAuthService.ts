@@ -1,28 +1,28 @@
 import { apiClient } from '../apiClient';
-import type { LoginWithPhonePayload, RegisterPayload, AuthResponse, ForgotPasswordPayload } from '@/types/auth';
+import type { LoginWithPhonePayload, RegisterPayload, ForgotPasswordPayload } from '@/types/auth';
 
 export const realAuthService = {
-  async loginWithPhone(payload: LoginWithPhonePayload): Promise<AuthResponse> {
+  async loginWithPhone(payload: LoginWithPhonePayload): Promise<any> {
     const { data } = await apiClient.post('/auth/member/login-v2', payload);
     return data;
   },
 
-  async register(payload: RegisterPayload): Promise<AuthResponse> {
+  async register(payload: RegisterPayload): Promise<any> {
     const { data } = await apiClient.post('/auth/member/register-v2', payload);
     return data;
   },
 
-  async forgotPassword(payload: ForgotPasswordPayload): Promise<{ success: boolean; message: string }> {
+  async forgotPassword(payload: ForgotPasswordPayload): Promise<any> {
     const { data } = await apiClient.put('/auth/resetPasswordMember', payload);
     return data;
   },
 
-  async loginWithLine(payload?: any): Promise<AuthResponse> {
+  async loginWithLine(payload?: any): Promise<any> {
     const { data } = await apiClient.post('/auth/member/login', payload || {});
     return data;
   },
 
-  async loginWithApple(payload?: any): Promise<AuthResponse> {
+  async loginWithApple(payload?: any): Promise<any> {
     const { data } = await apiClient.post('/auth/member/login-v3', payload || {});
     return data;
   },
@@ -48,8 +48,6 @@ export const realAuthService = {
   },
 
   async logout(): Promise<void> {
-    // Backend might not have a logout endpoint in the old system, handled locally
-    // but just in case keeping it or clearing token
     return Promise.resolve();
   },
 };

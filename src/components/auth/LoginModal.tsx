@@ -11,11 +11,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ROUTES } from '@/lib/constants';
+import { Eye, EyeOff } from 'lucide-react';
 
 const loginSchema = z.object({
-  phone: z.string().min(9, 'Phone number is required'),
-  password: z.string().min(4, 'Password must be at least 4 characters'),
+  member_phone: z.string().min(9, 'กรุณากรอกเบอร์โทรศัพท์'),
+  member_password: z.string().min(4, 'รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -37,97 +39,125 @@ export function LoginModal() {
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={closeLoginModal}>
-      <DialogContent className="bg-pryde-dark border-border sm:max-w-md p-0 overflow-hidden max-h-[95vh] overflow-y-auto">
-        {/* Header */}
-        <div className="bg-gradient-to-b from-gold/10 to-transparent p-6 pb-4 text-center">
-          <DialogTitle className="text-gradient-gold text-2xl font-bold">PRYDE TV</DialogTitle>
-          <p className="text-muted-foreground text-sm mt-1">
-            {t('เข้าสู่ระบบเพื่อดูมวยไทยสด', 'Sign in to watch live Muay Thai')}
-          </p>
+      <DialogContent className="bg-white border border-[#d4d4d4] sm:max-w-[450px] p-0 overflow-hidden max-h-[95vh] overflow-y-auto rounded-2xl shadow-xl">
+        {/* Logo */}
+        <div className="flex justify-center pt-6 pb-2">
+          <Image src="/img/logo-500.png" alt="PRYDE TV" width={200} height={80} className="object-contain" />
         </div>
 
-        <div className="px-6 pb-6 space-y-4">
+        {/* Heading */}
+        <div className="text-center px-6">
+          <DialogTitle className="text-[18px] font-medium text-[#0a0a0a]">
+            {t('เข้าสู่ระบบ', 'Sign In')}
+          </DialogTitle>
+        </div>
+
+        <div className="px-6 pb-6 space-y-3">
           {/* Phone login form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-            <div>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="flex flex-col gap-1">
+              <label className="text-[12px] font-normal text-[#404040]">
+                {t('เบอร์โทรศัพท์', 'Phone Number')}
+              </label>
               <Input
-                {...register('phone')}
-                placeholder={t('เบอร์โทรศัพท์', 'Phone Number')}
-                className="bg-muted border-border text-white placeholder:text-muted-foreground h-11"
+                {...register('member_phone')}
+                placeholder="0812345678"
+                className="min-h-[40px] px-3 border border-[#d3d3d3] rounded-md text-[14px] text-[#0a0a0a] bg-white focus:border-[#bba556] focus:ring-[#bba556]"
               />
-              {errors.phone && <p className="text-xs text-pryde-red mt-1">{errors.phone.message}</p>}
+              {errors.member_phone && <p className="text-xs text-red-500">{errors.member_phone.message}</p>}
             </div>
-            <div className="relative">
-              <Input
-                {...register('password')}
-                type={showPassword ? 'text' : 'password'}
-                placeholder={t('รหัสผ่าน', 'Password')}
-                className="bg-muted border-border text-white placeholder:text-muted-foreground h-11 pr-12"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white text-sm"
-              >
-                {showPassword ? '🙈' : '👁️'}
-              </button>
-              {errors.password && <p className="text-xs text-pryde-red mt-1">{errors.password.message}</p>}
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[12px] font-normal text-[#404040]">
+                {t('รหัสผ่าน', 'Password')}
+              </label>
+              <div className="relative">
+                <Input
+                  {...register('member_password')}
+                  type={showPassword ? 'text' : 'password'}
+                  className="min-h-[40px] px-3 pr-10 border border-[#d3d3d3] rounded-md text-[14px] text-[#0a0a0a] bg-white focus:border-[#bba556] focus:ring-[#bba556]"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[#999] hover:text-[#333] bg-white p-1"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {errors.member_password && <p className="text-xs text-red-500">{errors.member_password.message}</p>}
             </div>
 
             {error && (
-              <div className="bg-pryde-red/10 text-pryde-red text-xs p-3 rounded-lg">{error}</div>
+              <div className="bg-red-50 text-red-600 text-[12px] p-3 rounded-lg border border-red-200">{error}</div>
             )}
 
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gold hover:bg-gold-light text-black font-bold h-11 rounded-lg"
+              className="w-full min-h-[40px] rounded-lg bg-[#927d4f] hover:bg-[#7a6a43] text-white text-[12px] font-medium"
             >
               {isLoading ? t('กำลังเข้าสู่ระบบ...', 'Signing in...') : t('เข้าสู่ระบบ', 'Sign In')}
             </Button>
           </form>
 
-          <div className="text-center">
-            <Link href={ROUTES.FORGOT_PASSWORD} onClick={closeLoginModal} className="text-xs text-gold hover:text-gold-light">
-              {t('ลืมรหัสผ่าน?', 'Forgot Password?')}
-            </Link>
-          </div>
-
           {/* Divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border" /></div>
-            <div className="relative flex justify-center text-xs">
-              <span className="bg-pryde-dark px-3 text-muted-foreground">{t('หรือ', 'or')}</span>
-            </div>
+          <div className="flex justify-center items-center">
+            <span className="text-[#404040] text-[12px]">{t('หรือเข้าสู่ระบบด้วย', 'or sign in with')}</span>
           </div>
 
-          {/* Social logins */}
-          <div className="space-y-2">
-            <Button
-              onClick={loginWithLine}
-              disabled={isLoading}
-              variant="outline"
-              className="w-full h-11 border-[#00C300] text-[#00C300] hover:bg-[#00C300]/10 font-semibold rounded-lg"
-            >
-              <span className="mr-2 text-lg">💬</span> {t('เข้าสู่ระบบด้วย LINE', 'Sign in with LINE')}
-            </Button>
-            <Button
-              onClick={loginWithApple}
-              disabled={isLoading}
-              variant="outline"
-              className="w-full h-11 border-white/30 text-white hover:bg-white/10 font-semibold rounded-lg"
-            >
-              <span className="mr-2 text-lg">🍎</span> {t('เข้าสู่ระบบด้วย Apple', 'Sign in with Apple')}
-            </Button>
-          </div>
+          {/* Register button */}
+          <Button
+            onClick={() => { closeLoginModal(); window.location.href = ROUTES.REGISTER; }}
+            className="w-full min-h-[40px] rounded-md bg-[#d3b23e] hover:bg-[#c0a035] text-white text-[12px] font-medium"
+          >
+            {t('สมัครสมาชิก', 'Register')}
+          </Button>
 
-          {/* Register link */}
-          <p className="text-center text-sm text-muted-foreground">
-            {t('ยังไม่มีบัญชี?', "Don't have an account?")}{' '}
-            <Link href={ROUTES.REGISTER} onClick={closeLoginModal} className="text-gold hover:text-gold-light font-semibold">
-              {t('สมัครสมาชิก', 'Sign Up')}
+          {/* LINE Login */}
+          <Button
+            onClick={loginWithLine}
+            disabled={isLoading}
+            className="w-full min-h-[40px] rounded-md bg-[#06c755] hover:bg-[#05b34c] text-white text-[12px] font-medium border border-[#06c755]"
+          >
+            {t('เข้าสู่ระบบด้วย LINE', 'Sign in with LINE')}
+          </Button>
+
+          {/* Apple Login */}
+          <Button
+            onClick={loginWithApple}
+            disabled={isLoading}
+            variant="outline"
+            className="w-full min-h-[40px] rounded-md bg-white text-black text-[12px] font-medium border border-black hover:bg-gray-50"
+          >
+            🍎 {t('เข้าสู่ระบบด้วย Apple', 'Sign in with Apple')}
+          </Button>
+
+          {/* Forgot password & contact admin */}
+          <div className="flex justify-center items-center gap-1 border-b border-[#d3d3d399] pb-4 text-[12px]">
+            <span className="text-[#404040]">{t('ลืมรหัสผ่าน', 'Forgot password')}</span>
+            <Link href={ROUTES.CONTACT} onClick={closeLoginModal} className="text-[#e33122] font-medium">
+              {t('ติดต่อแอดมิน', 'Contact Admin')}
             </Link>
-          </p>
+            <span>/</span>
+            <Link href={ROUTES.FORGOT_PASSWORD} onClick={closeLoginModal} className="text-[#e33122] font-medium">
+              {t('กู้รหัสผ่าน', 'Recovery')}
+            </Link>
+          </div>
+
+          {/* Policy */}
+          <div className="flex flex-col items-center text-[12px] text-[#404040]">
+            <span>{t('เมื่อเข้าสู่ระบบ คุณยอมรับ', 'By signing in, you agree to')}</span>
+            <span>
+              <Link href={ROUTES.TERMS} onClick={closeLoginModal} className="text-[#210504] underline">
+                {t('เงื่อนไขการใช้งาน', 'Terms')}
+              </Link>
+              {' '}{t('และ', 'and')}{' '}
+              <Link href={ROUTES.POLICY} onClick={closeLoginModal} className="text-[#210504] underline">
+                {t('นโยบายความเป็นส่วนตัว', 'Privacy Policy')}
+              </Link>
+            </span>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

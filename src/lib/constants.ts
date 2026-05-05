@@ -19,6 +19,7 @@ export const ROUTES = {
   ACCOUNT_REDEEM: '/account/redeem',
   ACCOUNT_TV_QR: '/account/tv-qr',
   LOGIN: '/login',
+  SIGN_IN: '/sign-in',
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
   POLICY: '/policy',
