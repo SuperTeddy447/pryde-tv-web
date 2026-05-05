@@ -63,7 +63,7 @@ export function LoginModal() {
 
   return (
     <Dialog open={isLoginModalOpen} onOpenChange={closeLoginModal}>
-      <DialogContent className="bg-white border border-[#d4d4d4] sm:max-w-[450px] p-0 overflow-hidden max-h-[95vh] overflow-y-auto rounded-2xl shadow-xl">
+      <DialogContent className="bg-white border border-[#d4d4d4] sm:max-w-[450px] p-0 max-h-[95vh] overflow-y-auto rounded-2xl shadow-xl">
         {/* Logo */}
         <div className="flex justify-center pt-6 pb-2">
           <Image src="/logo-500.svg" alt="PRYDE TV" width={200} height={80} className="object-contain" />
