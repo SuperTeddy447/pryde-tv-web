@@ -171,7 +171,7 @@ export function useAuth() {
    * Register new member
    * Maps to legacy: POST /auth/member/register-v2
    */
-  const register = async (payload: RegisterPayload) => {
+  const registerWithPhone = async (payload: RegisterPayload) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -287,7 +287,7 @@ export function useAuth() {
     isLoginModalOpen, openLoginModal, closeLoginModal,
     loginWithPhone, loginWithLine, loginWithApple,
     processLineCallback,
-    register, forgotPassword, logout,
+    registerWithPhone, forgotPassword, logout,
     sendOTP, verifyOTP,
     refreshProfile, isTokenExpired,
   };

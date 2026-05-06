@@ -40,7 +40,7 @@ function generateYears() {
 }
 
 export default function RegisterPage() {
-  const { register: registerAuth, isLoading, error } = useAuth();
+  const { registerWithPhone: registerAuth, isLoading, error } = useAuth();
   const { isAuthenticated } = useAuthStore();
   const { t, locale } = useLanguage();
   const router = useRouter();
